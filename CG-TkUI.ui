@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="root">
+    <property name="height">400</property>
+    <property name="maxsize">600|400</property>
+    <property name="padx">10</property>
+    <property name="pady">10</property>
+    <property name="title" translatable="yes">CG</property>
+    <property name="width">600</property>
+    <bind sequence="&lt;1&gt;" handler="callback" add="" />
+    <containerlayout manager="grid">
+      <property name="anchor">center</property>
+    </containerlayout>
+    <child>
+      <object class="ttk.Frame" id="mainframe">
+        <property name="height">400</property>
+        <property name="width">600</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">0</property>
+        </layout>
+        <containerlayout manager="grid">
+          <property name="anchor">center</property>
+          <property name="propagate">False</property>
+        </containerlayout>
+        <child>
+          <object class="ttk.Frame" id="frame_inicio">
+            <property name="borderwidth">5</property>
+            <property name="height">200</property>
+            <property name="padding">10</property>
+            <property name="relief">ridge</property>
+            <property name="width">200</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">0</property>
+            </layout>
+            <containerlayout manager="grid">
+              <property name="anchor">center</property>
+            </containerlayout>
+            <child>
+              <object class="ttk.Label" id="label_titulo">
+                <property name="justify">center</property>
+                <property name="padding">10</property>
+                <property name="text" translatable="yes">Trabalho Prático 1</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="columnspan">3</property>
+                  <property name="row">0</property>
+                  <property name="rowspan">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="bttn_linha">
+                <property name="text" translatable="yes">Bresenham</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="ipadx">10</property>
+                  <property name="ipady">10</property>
+                  <property name="padx">10</property>
+                  <property name="pady">10</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="bttn_circulo">
+                <property name="text" translatable="yes">Círculos</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="ipadx">10</property>
+                  <property name="ipady">10</property>
+                  <property name="padx">10</property>
+                  <property name="pady">10</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="bttn_curvas">
+                <property name="text" translatable="yes">Curvas</property>
+                <layout manager="grid">
+                  <property name="column">2</property>
+                  <property name="ipadx">10</property>
+                  <property name="ipady">10</property>
+                  <property name="padx">10</property>
+                  <property name="pady">10</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="bttn_linha_poli">
+                <property name="text" translatable="yes">Polilinhas</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="ipadx">10</property>
+                  <property name="ipady">10</property>
+                  <property name="padx">10</property>
+                  <property name="pady">10</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="bttn_preen">
+                <property name="text" translatable="yes">Preenchimento Recursivo - Varredura</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="ipadx">10</property>
+                  <property name="ipady">10</property>
+                  <property name="padx">10</property>
+                  <property name="pady">10</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="bttn_linha_cut">
+                <property name="text" translatable="yes">Recorte de Linha</property>
+                <layout manager="grid">
+                  <property name="column">2</property>
+                  <property name="ipadx">10</property>
+                  <property name="ipady">10</property>
+                  <property name="padx">10</property>
+                  <property name="pady">10</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="bttn_linha_poli_cut">
+                <property name="text" translatable="yes">Recorte de Polígono</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="ipadx">10</property>
+                  <property name="ipady">10</property>
+                  <property name="padx">10</property>
+                  <property name="pady">10</property>
+                  <property name="row">3</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="bttn_trans">
+                <property name="text" translatable="yes">Transformações</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="ipadx">10</property>
+                  <property name="ipady">10</property>
+                  <property name="padx">10</property>
+                  <property name="pady">10</property>
+                  <property name="row">3</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="bttn_orto">
+                <property name="text" translatable="yes">Projeções Ortográficas e Perspectiva</property>
+                <property name="textvariable">string:ac</property>
+                <layout manager="grid">
+                  <property name="column">2</property>
+                  <property name="ipadx">10</property>
+                  <property name="ipady">10</property>
+                  <property name="padx">10</property>
+                  <property name="pady">10</property>
+                  <property name="row">3</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="bttn_sair">
+                <property name="text" translatable="yes">Sair</property>
+                <layout manager="grid">
+                  <property name="column">1</property>
+                  <property name="ipadx">10</property>
+                  <property name="ipady">10</property>
+                  <property name="padx">10</property>
+                  <property name="pady">10</property>
+                  <property name="row">4</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
