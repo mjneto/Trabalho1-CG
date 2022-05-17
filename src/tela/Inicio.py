@@ -1,56 +1,166 @@
-from tkinter import *
-from tkinter import ttk
-from BresenhamTela import teste
+#!/usr/bin/python3
+import tkinter as tk
+import tkinter.ttk as ttk
 
-root = Tk()
-root.title("CG")
-root.geometry('600x400')
+from numpy import pad
+from BresenhamTela import TelaBresenham
 
-mainframe = ttk.Frame(root)
-mainframe.grid()
+class Inicio:
+    def __init__(self, master=None):
+        # build ui
+        self.root = tk.Tk() if master is None else tk.Toplevel(master)
+        self.frame_inicio = ttk.Frame(self.root)
+        self.frame_bres = ttk.Frame(self.root)
+        
+        self.label_titulo = ttk.Label(self.frame_inicio)
+        self.label_titulo.configure(
+            justify="center", padding="10", text="Trabalho Prático 1"
+        )
+        self.label_titulo.grid(column="0", columnspan="3", row="0", rowspan="1")
 
-s = ttk.Style()
-s.configure('Danger.TFrame', borderwidth=5, relief='raised')
+        self.bttn_linha = ttk.Button(self.frame_inicio, command=TelaBresenham)
+        self.bttn_linha.configure(text="Bresenham")
+        self.bttn_linha.grid(
+            column="0",
+            ipadx="10",
+            ipady="10",
+            padx="10",
+            pady="10",
+            row="1",
+            sticky="nesw",
+        )
 
-frame_inicio = ttk.Frame(mainframe, borderwidth=5, relief="ridge", padding='10', style='Danger.TFrame')
-frame_inicio.grid()
+        self.bttn_circulo = ttk.Button(self.frame_inicio)
+        self.bttn_circulo.configure(text="Círculos")
+        self.bttn_circulo.grid(
+            column="1",
+            ipadx="10",
+            ipady="10",
+            padx="10",
+            pady="10",
+            row="1",
+            sticky="nesw",
+        )
 
-label_titulo = ttk.Label(frame_inicio, text="Trabalho Prático 1")
-label_titulo.grid(column=0, row=0, columnspan=3)
+        self.bttn_curvas = ttk.Button(self.frame_inicio)
+        self.bttn_curvas.configure(text="Curvas")
+        self.bttn_curvas.grid(
+            column="2",
+            ipadx="10",
+            ipady="10",
+            padx="10",
+            pady="10",
+            row="1",
+            sticky="nesw",
+        )
 
-separador_bttn = 10
+        self.bttn_linha_poli = ttk.Button(self.frame_inicio)
+        self.bttn_linha_poli.configure(text="Polilinhas")
+        self.bttn_linha_poli.grid(
+            column="0",
+            ipadx="10",
+            ipady="10",
+            padx="10",
+            pady="10",
+            row="2",
+            sticky="nesw",
+        )
 
-bttn_01 = ttk.Button(frame_inicio, text="Bresenham", command=teste)
-bttn_01.grid(column=0, row=1, sticky=(W,E), padx=separador_bttn, pady=separador_bttn)
+        self.bttn_preen = ttk.Button(self.frame_inicio)
+        self.bttn_preen.configure(text="Preenc. Recursivo\nVarredura")
+        self.bttn_preen.grid(
+            column="1",
+            ipadx="10",
+            ipady="10",
+            padx="10",
+            pady="10",
+            row="2",
+            sticky="nesw"
+        )
 
-bttn_02 = ttk.Button(frame_inicio, text="Círculos")
-bttn_02.grid(column=1, row=1, sticky=(W,E), padx=separador_bttn, pady=separador_bttn)
+        self.bttn_linha_cut = ttk.Button(self.frame_inicio)
+        self.bttn_linha_cut.configure(text="Recorte\nde Linha")
+        self.bttn_linha_cut.grid(
+            column="2",
+            ipadx="10",
+            ipady="10",
+            padx="10",
+            pady="10",
+            row="2",
+            sticky="nesw"
+        )
 
-bttn_03 = ttk.Button(frame_inicio, text="Curvas")
-bttn_03.grid(column=2, row=1, sticky=(W,E), padx=separador_bttn, pady=separador_bttn)
+        self.bttn_linha_poli_cut = ttk.Button(self.frame_inicio)
+        self.bttn_linha_poli_cut.configure(text="Recorte\nde Polígono")
+        self.bttn_linha_poli_cut.grid(
+            column="0",
+            ipadx="10",
+            ipady="10",
+            padx="10",
+            pady="10",
+            row="3",
+            sticky="nesw"
+        )
 
-bttn_04 = ttk.Button(frame_inicio, text="Polilinha")
-bttn_04.grid(column=0, row=2, sticky=(W,E), padx=separador_bttn, pady=separador_bttn)
+        self.bttn_trans = ttk.Button(self.frame_inicio)
+        self.bttn_trans.configure(text="Transformações")
+        self.bttn_trans.grid(
+            column="1",
+            ipadx="10",
+            ipady="10",
+            padx="10",
+            pady="10",
+            row="3",
+            sticky="nesw"
+        )
 
-bttn_05 = ttk.Button(frame_inicio, text="Preenchimento Rec. - Varredura")
-bttn_05.grid(column=1, row=2, sticky=(W,E),padx=separador_bttn, pady=separador_bttn)
+        self.bttn_orto = ttk.Button(self.frame_inicio)
+        self.bttn_orto.configure(text="Proj. Ortográficas\ne Perspectiva")
+        self.bttn_orto.grid(
+            column="2",
+            ipadx="10",
+            ipady="10",
+            padx="10",
+            pady="10",
+            row="3",
+            sticky="nesw"
+        )
 
-bttn_06 = ttk.Button(frame_inicio, text="Recorte de linha")
-bttn_06.grid(column=2, row=2, sticky=(W,E), padx=separador_bttn, pady=separador_bttn)
+        self.bttn_sair = ttk.Button(self.frame_inicio, command=self.root.destroy)
+        self.bttn_sair.configure(text="Sair")
+        self.bttn_sair.grid(
+            column="1",
+            ipadx="10",
+            ipady="10",
+            padx="10",
+            pady="10",
+            row="4",
+            sticky="nesw"
+        )
 
-bttn_07 = ttk.Button(frame_inicio, text="Recorte de Poligono")
-bttn_07.grid(column=0, row=3, sticky=(W,E), padx=separador_bttn, pady=separador_bttn)
+        self.frame_inicio.configure(
+            borderwidth="5", height="200", padding="10", relief="ridge"
+        )
 
-bttn_08 = ttk.Button(frame_inicio, text="Transformações")
-bttn_08.grid(column=1, row=3, sticky=(W,E), padx=separador_bttn, pady=separador_bttn)
+        self.frame_inicio.configure(width="200")
+        self.frame_inicio.grid(column="0", row="0")
+        self.frame_inicio.grid_anchor("center")
 
-bttn_09 = ttk.Button(frame_inicio, text="Projeção Orto. e Perspectiva")
-bttn_09.grid(column=2, row=3, sticky=(W,E), padx=separador_bttn, pady=separador_bttn)
+        self.frame_bres.configure(width="200")
+        self.frame_bres.grid(column="0", row="0")
+        self.frame_bres.grid_anchor("center")
 
-bttn_10 = ttk.Button(frame_inicio, text="Sair", command=root.destroy)
-bttn_10.grid(column=1, row=4, sticky=(W,E), padx=separador_bttn, pady=separador_bttn)
+        self.root.configure(height="400", padx="10", pady="10", width="600")
+        self.root.maxsize(600, 400)
+        self.root.title("CG")
+        self.root.grid_anchor("center")
 
-root.columnconfigure(0, weight=1)
-root.rowconfigure(0, weight=1)
+        # Main widget
+        self.mainwindow = self.root
 
-root.mainloop()
+    def run(self):
+        self.mainwindow.mainloop()
+
+if __name__ == "__main__":
+    app = Inicio()
+    app.run()
