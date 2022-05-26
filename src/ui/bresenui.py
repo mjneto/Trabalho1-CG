@@ -1,13 +1,11 @@
 #!/usr/bin/python3
 import tkinter as tk
 import tkinter.ttk as ttk
-import sys
 
-sys.path.append('..')
+from framebuffer import buffer
+from functions.bresenham import bresenham
 
-from Grade import framebuffer
-
-class TelaBresenham:
+class bresen_screen:
     def __init__(self, master=None):
         # build ui
         self.Bresenham = tk.Tk() if master is None else tk.Toplevel(master)
@@ -31,6 +29,7 @@ class TelaBresenham:
             pady="10",
             row="1"
         )
+        self.bttn_do.bind("<ButtonPress-1>", self.bttn_click)
 
         self.bttn_back = ttk.Button(self.frame_input)
         self.bttn_back.configure(text="Voltar", command=self.Bresenham.destroy)
@@ -48,7 +47,7 @@ class TelaBresenham:
 
         self.frame_grade.configure(height="400", relief="ridge", width="400")
         self.frame_grade.grid(column="1", row="0")
-        framebuffer(self.frame_grade)
+        self.g = buffer(self.frame_grade)
 
         self.frame_bres.configure(borderwidth="5",
             height="400",
@@ -63,6 +62,12 @@ class TelaBresenham:
 
         # Main widget
         self.mainwindow = self.Bresenham
+    
+    def bttn_click(self, event=None):
+        if len(self.g.pts) >= 2 and len(self.g.pts) < 3:
+            pts = bresenham(self.g.pts)
+            self.g.set_point(pts)
+        else: print('< 2 pts')
 
     def run(self):
         self.mainwindow.mainloop()

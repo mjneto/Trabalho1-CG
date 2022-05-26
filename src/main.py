@@ -2,10 +2,9 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
-from numpy import pad
-from BresenhamTela import TelaBresenham
+from ui.bresenui import bresen_screen
 
-class Inicio:
+class main:
     def __init__(self, master=None):
         # build ui
         self.root = tk.Tk() if master is None else tk.Toplevel(master)
@@ -18,7 +17,7 @@ class Inicio:
         )
         self.label_titulo.grid(column="0", columnspan="3", row="0", rowspan="1")
 
-        self.bttn_linha = ttk.Button(self.frame_inicio, command=TelaBresenham)
+        self.bttn_linha = ttk.Button(self.frame_inicio, command=bresen_screen)
         self.bttn_linha.configure(text="Bresenham")
         self.bttn_linha.grid(
             column="0",
@@ -162,5 +161,5 @@ class Inicio:
         self.mainwindow.mainloop()
 
 if __name__ == "__main__":
-    app = Inicio()
+    app = main()
     app.run()
