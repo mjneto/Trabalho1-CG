@@ -1,16 +1,18 @@
-#!/usr/bin/python3
 import tkinter as tk
 import tkinter.ttk as ttk
 
 from ui.bresenui import bresen_screen
+from ui.polyui import polyline_screen
+from ui.circleui import circle_screen
+from ui.curveui import curve_screen
+from ui.fillui import fill_screen
 
 class main:
     def __init__(self, master=None):
         # build ui
         self.root = tk.Tk() if master is None else tk.Toplevel(master)
         self.frame_inicio = ttk.Frame(self.root)
-        self.frame_bres = ttk.Frame(self.root)
-        
+
         self.label_titulo = ttk.Label(self.frame_inicio)
         self.label_titulo.configure(
             justify="center", padding="10", text="Trabalho Prático 1"
@@ -29,7 +31,7 @@ class main:
             sticky="nesw",
         )
 
-        self.bttn_circulo = ttk.Button(self.frame_inicio)
+        self.bttn_circulo = ttk.Button(self.frame_inicio, command=circle_screen)
         self.bttn_circulo.configure(text="Círculos")
         self.bttn_circulo.grid(
             column="1",
@@ -41,7 +43,7 @@ class main:
             sticky="nesw",
         )
 
-        self.bttn_curvas = ttk.Button(self.frame_inicio)
+        self.bttn_curvas = ttk.Button(self.frame_inicio, command=curve_screen)
         self.bttn_curvas.configure(text="Curvas")
         self.bttn_curvas.grid(
             column="2",
@@ -53,7 +55,7 @@ class main:
             sticky="nesw",
         )
 
-        self.bttn_linha_poli = ttk.Button(self.frame_inicio)
+        self.bttn_linha_poli = ttk.Button(self.frame_inicio, command=polyline_screen)
         self.bttn_linha_poli.configure(text="Polilinhas")
         self.bttn_linha_poli.grid(
             column="0",
@@ -65,7 +67,7 @@ class main:
             sticky="nesw",
         )
 
-        self.bttn_preen = ttk.Button(self.frame_inicio)
+        self.bttn_preen = ttk.Button(self.frame_inicio, command=fill_screen)
         self.bttn_preen.configure(text="Preenc. Recursivo\nVarredura")
         self.bttn_preen.grid(
             column="1",
@@ -144,10 +146,6 @@ class main:
         self.frame_inicio.configure(width="200")
         self.frame_inicio.grid(column="0", row="0")
         self.frame_inicio.grid_anchor("center")
-
-        self.frame_bres.configure(width="200")
-        self.frame_bres.grid(column="0", row="0")
-        self.frame_bres.grid_anchor("center")
 
         self.root.configure(height="400", padx="10", pady="10", width="600")
         self.root.maxsize(600, 400)

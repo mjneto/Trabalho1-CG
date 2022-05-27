@@ -14,7 +14,7 @@ class buffer:
         self.grade.bind('<Configure>', self.draw_gride)
         self.grade.bind('<ButtonPress-1>', self.mouse_click)
 
-    def draw_gride(self, event=None):
+    def draw_gride(self, event=None): #Desenha a grade com retangulos
         for x in range(0, self.grade.winfo_width()):
             for y in range(0, self.grade.winfo_height()):
                 x1 = (x * self.px_width)
@@ -24,37 +24,37 @@ class buffer:
                 self.grade.create_rectangle(x1,y1,x2,y2)
             self.grade.update()
 
-    def mouse_click(self, event):
+    def mouse_click(self, event): #Pega a posição do clique do mouse
         coord = self.grade.find_closest(event.x, event.y)
-        row = int(self.grade.canvasx(event.x)//10)
-        column = int(self.grade.canvasy(event.y)//10)
+        x = int(self.grade.canvasx(event.x)//10)
+        y = int(self.grade.canvasy(event.y)//10)
 
         if coord:
-            self.matriz[row][column] = coord
-            self.pts.append([row,column])
-            self.put_pixel()
+            self.matriz[x][y] = coord
+            self.pts.append([x,y])
+            self.put_pixel(x, y)
 
-    def put_pixel(self):
-        for i in self.pts:
-            if self.matriz[i[0]][i[1]] != 0:
-                    rect_id = self.matriz[i[0]][i[1]]
-                    self.grade.itemconfigure(rect_id, fill='black')
-                    
-    def create_mat(self):
+    def put_pixel(self, x, y): #Responsável por desenhar os retangulos marcados pela matriz
+        if self.matriz[x][y] != 0:
+                rect_id = self.matriz[x][y]
+                self.grade.itemconfigure(rect_id, fill='black')
+                
+    def create_mat(self): #Cria a matriz de retangulos que controla o desenho da grade
         matriz = []
 
-        for row in range(40):
+        for x in range(40):
             matriz.append([])
-            for column in range(40):
-                matriz[row].append(0)
+            for y in range(40):
+                matriz[x].append(0)
 
         return matriz
     
-    def set_point(self, pontos):
+    def set_point(self, pontos): #Dado pontos, marca o retangulo correspondente na matriz de controle
         self.pts = pontos
         
-        for i in self.pts:
-            coord = self.grade.find_closest(i[0]*10, i[1]*10)
-            self.matriz[i[0]][i[1]] = coord
-            self.put_pixel()
+        for p in self.pts:
+            if((p[0]<40 and p[1]<40) and (p[0]>=0 and p[1]>=0)):
+                coord = self.grade.find_closest(p[0]*10, p[1]*10)
+                self.matriz[p[0]][p[1]] = coord
+                self.put_pixel(p[0],p[1])
         
