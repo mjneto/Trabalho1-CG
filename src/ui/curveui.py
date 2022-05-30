@@ -1,5 +1,5 @@
-#!/usr/bin/python3
 import tkinter as tk
+from tkinter import messagebox
 import tkinter.ttk as ttk
 
 from framebuffer import buffer
@@ -20,7 +20,7 @@ class curve_screen:
         self.lb_text.grid(column="0", padx="5", pady="5", row="0")
 
         self.bttn_do = ttk.Button(self.frame_input)
-        self.bttn_do.configure(text="Desenhar")
+        self.bttn_do.configure(text="Desenhar", command=self.bttn_click)
         self.bttn_do.grid(
             column="0",
             ipadx="10",
@@ -29,7 +29,6 @@ class curve_screen:
             pady="10",
             row="1"
         )
-        self.bttn_do.bind("<ButtonPress-1>", self.bttn_click)
 
         self.bttn_back = ttk.Button(self.frame_input)
         self.bttn_back.configure(text="Voltar", command=self.curve.destroy)
@@ -63,10 +62,14 @@ class curve_screen:
         # Main widget
         self.mainwindow = self.curve
     
-    def bttn_click(self, event=None):
+    def bttn_click(self, event=None): #evento do clique do botao
         if len(self.g.pts) >= 3:
             pts = bezier(self.g.pts)
-            self.g.set_point(pts)
+            self.g.set_point(pts, '#000000')
+            self.g.pts = []
+        else:
+            messagebox.showerror("Atenção", "Clique em pelo menos 3 pontos", parent=self.curve)
+            self.g.clear()
 
     def run(self):
         self.mainwindow.mainloop()

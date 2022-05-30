@@ -1,10 +1,8 @@
-from framebuffer import buffer
-
 def reflex(x1, y1, x2, y2): #verifica reflexão
     try:
         m = (y2-y1)/(x2-x1) #Δy/Δx
     except ZeroDivisionError:
-        m = 0
+        m = -2
     reflex_t = [False, False, False]
 
     if m > 1 or m < -1:
@@ -35,7 +33,7 @@ def reverse_reflex(troca, pts): #inversão da reflexão
 def bresenham(pts):
     [[x1,y1], [x2, y2]] = pts
 
-    troca, x1, y1, x2, y2 = reflex(x1, y1, x2, y2)
+    change, x1, y1, x2, y2 = reflex(x1, y1, x2, y2)
     x = x1
     y = y1
     try:
@@ -48,13 +46,13 @@ def bresenham(pts):
     p.append([x,y]) #vetor de pontos para desenho
 
     while x < x2:
-        if e >= 0:
+        if e > 0:
             y += 1
             e -= 1
         x += 1
         e += m
         p.append([x,y])
 
-    p = reverse_reflex(troca, p) #faz a inversão da reflexão
+    p = reverse_reflex(change, p) #faz a inversão da reflexão
 
     return p 

@@ -1,4 +1,3 @@
-
 def draw8points(x, y, xc, yc): #guarda os 8 pontos para desenhar
     circle_points = []
 

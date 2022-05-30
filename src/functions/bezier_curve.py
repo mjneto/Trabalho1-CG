@@ -1,4 +1,3 @@
-
 from functions.bresenham import bresenham
 
 def bezier_point(control_pts, t, n):

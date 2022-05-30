@@ -1,6 +1,6 @@
-#!/usr/bin/python3
 import tkinter as tk
 import tkinter.ttk as ttk
+from tkinter import messagebox
 
 from framebuffer import buffer
 from functions.bresenham import bresenham
@@ -20,7 +20,7 @@ class bresen_screen:
         self.lb_text.grid(column="0", padx="5", pady="5", row="0")
 
         self.bttn_do = ttk.Button(self.frame_input)
-        self.bttn_do.configure(text="Desenhar")
+        self.bttn_do.configure(text="Desenhar", command=self.bttn_click)
         self.bttn_do.grid(
             column="0",
             ipadx="10",
@@ -29,8 +29,7 @@ class bresen_screen:
             pady="10",
             row="1"
         )
-        self.bttn_do.bind("<ButtonPress-1>", self.bttn_click)
-
+        
         self.bttn_back = ttk.Button(self.frame_input)
         self.bttn_back.configure(text="Voltar", command=self.bresenham.destroy)
         self.bttn_back.grid(
@@ -64,10 +63,16 @@ class bresen_screen:
         self.mainwindow = self.bresenham
     
     def bttn_click(self, event=None): #evento do clique do botao
-        if len(self.g.pts) >= 2 and len(self.g.pts) < 3:
+        if len(self.g.pts) == 2:
             pts = bresenham(self.g.pts)
-            self.g.set_point(pts)
-        else: print('< 2 pts ou > 2 pts')
+            self.g.set_point(pts, '#000000')
+            self.g.pts = []
+        elif len(self.g.pts) > 2: #> 2 pts
+            messagebox.showerror("Atenção", "Mais de dois pontos encontrados.", parent=self.bresenham)
+            self.g.clear()
+        else: # < 2 pts
+            messagebox.showerror("Atenção", "Clique em dois pontos.", parent=self.bresenham)
+            self.g.clear()
 
     def run(self):
         self.mainwindow.mainloop()

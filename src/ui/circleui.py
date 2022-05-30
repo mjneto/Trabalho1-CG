@@ -1,5 +1,5 @@
-#!/usr/bin/python3
 import tkinter as tk
+from tkinter import messagebox
 import tkinter.ttk as ttk
 
 from framebuffer import buffer
@@ -20,7 +20,7 @@ class circle_screen:
         self.lb_text.grid(column="0", padx="5", pady="5", row="0")
 
         self.bttn_do = ttk.Button(self.frame_input)
-        self.bttn_do.configure(text="Desenhar")
+        self.bttn_do.configure(text="Desenhar", command=self.bttn_click)
         self.bttn_do.grid(
             column="0",
             ipadx="10",
@@ -29,7 +29,6 @@ class circle_screen:
             pady="10",
             row="1"
         )
-        self.bttn_do.bind("<ButtonPress-1>", self.bttn_click)
 
         self.bttn_back = ttk.Button(self.frame_input)
         self.bttn_back.configure(text="Voltar", command=self.circle.destroy)
@@ -63,15 +62,20 @@ class circle_screen:
         # Main widget
         self.mainwindow = self.circle
     
-    def bttn_click(self, event=None):
-        radius = 0
+    def bttn_click(self, event=None): #evento do clique do botao
+        if len(self.g.pts) >= 1:
+            radius = 0
 
-        if len(self.g.pts) == 1: radius = 5
-        else: radius = abs(self.g.pts[0][0]-self.g.pts[1][0])
+            if len(self.g.pts) == 1: radius = 5
+            else: radius = abs(self.g.pts[0][0]-self.g.pts[1][0])
 
-        pts = circle_mid(radius, self.g.pts[0][0], self.g.pts[0][1])
-        for p in pts:
-            self.g.set_point(p)
-
+            pts = circle_mid(radius, self.g.pts[0][0], self.g.pts[0][1])
+            for p in pts:
+                self.g.set_point(p, '#000000')
+            self.g.pts = []
+        else:
+            messagebox.showerror("Atenção", "Clique em um ponto.", parent=self.circle)
+            self.g.clear()
+            
     def run(self):
         self.mainwindow.mainloop()

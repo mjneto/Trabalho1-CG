@@ -1,4 +1,3 @@
-
 from functions.bresenham import bresenham
 
 def poli(pts): #define um poligno com os 3+ pontos

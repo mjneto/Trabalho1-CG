@@ -6,6 +6,7 @@ from ui.polyui import polyline_screen
 from ui.circleui import circle_screen
 from ui.curveui import curve_screen
 from ui.fillui import fill_screen
+from ui.clip_lineui import clip_line_screen
 
 class main:
     def __init__(self, master=None):
@@ -20,7 +21,7 @@ class main:
         self.label_titulo.grid(column="0", columnspan="3", row="0", rowspan="1")
 
         self.bttn_linha = ttk.Button(self.frame_inicio, command=bresen_screen)
-        self.bttn_linha.configure(text="Bresenham")
+        self.bttn_linha.configure(text="Linhas")
         self.bttn_linha.grid(
             column="0",
             ipadx="10",
@@ -68,7 +69,7 @@ class main:
         )
 
         self.bttn_preen = ttk.Button(self.frame_inicio, command=fill_screen)
-        self.bttn_preen.configure(text="Preenc. Recursivo\nVarredura")
+        self.bttn_preen.configure(text="Preenchimento")
         self.bttn_preen.grid(
             column="1",
             ipadx="10",
@@ -79,7 +80,7 @@ class main:
             sticky="nesw"
         )
 
-        self.bttn_linha_cut = ttk.Button(self.frame_inicio)
+        self.bttn_linha_cut = ttk.Button(self.frame_inicio, command=clip_line_screen)
         self.bttn_linha_cut.configure(text="Recorte\nde Linha")
         self.bttn_linha_cut.grid(
             column="2",
