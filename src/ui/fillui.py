@@ -51,7 +51,7 @@ class fill_screen:
         self.select_recursive = tk.Radiobutton(self.frame_input)
         self.select_recursive.configure(text="Recursivo", variable=self.select_fill, value=0)
 
-        self.select_scanline = tk.Radiobutton(self.frame_input)
+        self.select_scanline = tk.Radiobutton(self.frame_input, state="disabled")
         self.select_scanline.configure(text="Varredura", variable=self.select_fill, value=1)
         #------------------
         self.frame_input.configure(height="600", width="400")
@@ -94,12 +94,7 @@ class fill_screen:
         
         elif self.select_fill.get() == 1: # Scanline
             if len(self.g.pts) == 1:
-                #self.bttn_do.configure(state="disabled")
-                #self.select_recursive.configure(state="disabled")
-                #self.select_scanline.configure(state="disabled")
-                
-                messagebox.showerror("Atenção", "Função não implementada", parent=self.fill)
-
+                pass
         elif self.select_fill.get() == 2: #Poligono
             if len(self.g.pts) >= 3:
                 self.lb_text.configure(text="Preenchimento:\n2) Especifique um ponto para preenchimento\ne selecione o tipo.\n")

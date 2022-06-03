@@ -4,19 +4,19 @@ import tkinter.ttk as ttk
 
 from framebuffer import buffer
 from functions.polyline import poli
-from functions.line_clip import cohen_sutherland
+from functions.polyline_clip import sutherland_hodgman
 
-class clip_line_screen:
+class clip_poly_screen:
     def __init__(self, master=None):
         # build ui
-        self.clip_line = tk.Tk() if master is None else tk.Toplevel(master)
-        self.clip = ttk.Frame(self.clip_line)
+        self.clip_poli = tk.Tk() if master is None else tk.Toplevel(master)
+        self.clip = ttk.Frame(self.clip_poli)
         self.frame_input = ttk.Frame(self.clip)
         self.frame_grade = ttk.Frame(self.clip)
-
+        
         self.lb_text = ttk.Label(self.frame_input)
         self.lb_text.configure(
-            text="Recorte de Linha:\nClique em dois pontos na grade e clique no botão.\n",
+            text="Recorte de Poligono:\nClique em três pontos na grade e clique no botão.\n",
             justify="center")
         self.lb_text.grid(column="0", padx="5", pady="5", row="0")
 
@@ -32,7 +32,7 @@ class clip_line_screen:
         )
 
         self.bttn_back = ttk.Button(self.frame_input)
-        self.bttn_back.configure(text="Voltar", command=self.clip_line.destroy)
+        self.bttn_back.configure(text="Voltar", command=self.clip_poli.destroy)
         self.bttn_back.grid(
             column="0",
             ipadx="10",
@@ -57,37 +57,30 @@ class clip_line_screen:
             )
         self.clip.grid(column="0", row="0")
 
-        self.clip_line.configure(height="400", padx="10", pady="10", width="600")
-        self.clip_line.title("CG")
+        self.clip_poli.configure(height="400", padx="10", pady="10", width="600")
+        self.clip_poli.title("CG")
         
-        self.clip_line.after(100, self.draw_area)
-        self.poli_area = [[6, 6], [33,6], [33, 33], [6, 33]]
+        self.clip_poli.after(100, self.draw_area)
+        self.poligon_area = [[6, 6], [33,6], [33, 33], [6, 33]]
 
         # Main widget
-        self.mainwindow = self.clip_line
+        self.mainwindow = self.clip_poli
     
     def bttn_click(self, event=None): #evento do clique do botao
-        if len(self.g.pts) == 2:
-            clip_points = cohen_sutherland(
-                self.g.pts[0][0],
-                self.g.pts[0][1], 
-                self.g.pts[1][0],
-                self.g.pts[1][1],
-                self.poli_area[0][0],
-                self.poli_area[0][1],
-                self.poli_area[2][0],
-                self.poli_area[2][1])
-            self.g.set_point(clip_points, '#ff0000')
+        if len(self.g.pts) >= 3:
+            clip_points = sutherland_hodgman(self.g.pts, self.poligon_area)
+            clip_points = poli(clip_points)
+            for pt in clip_points:
+                self.g.set_point(pt, '#ff0000')
 
             self.g.pts = []
-            pass
         else:
-            messagebox.showerror("Atenção", "Clique em dois ponto.", parent=self.clip_line)
+            messagebox.showerror("Atenção", "Clique em três ou mais pontos.", parent=self.clip_poli)
             self.g.clear()
             self.draw_area()
     
     def draw_area(self, event=None): #Desenhar caixa de recorte
-        draw_box = poli(self.poli_area)
+        draw_box = poli(self.poligon_area)
         for pt in draw_box:
             self.g.set_point(pt, '#000000')
         self.g.pts = []

@@ -2,7 +2,7 @@ def reflex(x1, y1, x2, y2): #verifica reflexão
     try:
         m = (y2-y1)/(x2-x1) #Δy/Δx
     except ZeroDivisionError:
-        m = -2
+        m = float('inf') # infinito para divisão por zero
     reflex_t = [False, False, False]
 
     if m > 1 or m < -1:
@@ -39,7 +39,7 @@ def bresenham(pts):
     try:
         m = (y2-y1)/(x2-x1) #Δy/Δx
     except ZeroDivisionError:
-        m = 0
+        m = float('inf') # infinito para divisão por zero
     e = m - (1/2)
     p = []
 

@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 from ui.bresenui import bresen_screen
+from ui.clip_polyui import clip_poly_screen
 from ui.polyui import polyline_screen
 from ui.circleui import circle_screen
 from ui.curveui import curve_screen
@@ -92,7 +93,7 @@ class main:
             sticky="nesw"
         )
 
-        self.bttn_linha_poli_cut = ttk.Button(self.frame_inicio)
+        self.bttn_linha_poli_cut = ttk.Button(self.frame_inicio, command=clip_poly_screen)
         self.bttn_linha_poli_cut.configure(text="Recorte\nde Polígono")
         self.bttn_linha_poli_cut.grid(
             column="0",
@@ -104,7 +105,7 @@ class main:
             sticky="nesw"
         )
 
-        self.bttn_trans = ttk.Button(self.frame_inicio)
+        self.bttn_trans = ttk.Button(self.frame_inicio, state='disable')
         self.bttn_trans.configure(text="Transformações")
         self.bttn_trans.grid(
             column="1",
@@ -116,7 +117,7 @@ class main:
             sticky="nesw"
         )
 
-        self.bttn_orto = ttk.Button(self.frame_inicio)
+        self.bttn_orto = ttk.Button(self.frame_inicio, state="disabled")
         self.bttn_orto.configure(text="Proj. Ortográficas\ne Perspectiva")
         self.bttn_orto.grid(
             column="2",

@@ -69,7 +69,7 @@ class polyline_screen:
                 self.g.set_point(p, '#000000')
             self.g.pts = []
         else: # < 3 pts
-            messagebox.showerror("Atenção", "Clique em três ou mais pontos na grade.", parent=self.polyline)
+            messagebox.showerror("Atenção", "Clique em três ou mais pontos.", parent=self.polyline)
             self.g.clear()
 
     def run(self):

@@ -25,9 +25,9 @@ class buffer:
             self.grade.update()
 
     def mouse_click(self, event): #Pega a posição do clique do mouse
-        coord = self.grade.find_closest(event.x, event.y)
         x = int(self.grade.canvasx(event.x)//10)
         y = int(self.grade.canvasy(event.y)//10)
+        coord = self.grade.find_closest(x*10, y*10)
 
         if coord:
             self.matriz[x][y] = coord
@@ -42,9 +42,9 @@ class buffer:
     def create_mat(self): #Cria a matriz de retangulos que controla o desenho da grade
         matriz = []
 
-        for x in range(40):
+        for x in range(41):
             matriz.append([])
-            for y in range(40):
+            for y in range(41):
                 matriz[x].append(0)
 
         return matriz

@@ -63,12 +63,12 @@ class curve_screen:
         self.mainwindow = self.curve
     
     def bttn_click(self, event=None): #evento do clique do botao
-        if len(self.g.pts) >= 3:
+        if len(self.g.pts) == 3:
             pts = bezier(self.g.pts)
             self.g.set_point(pts, '#000000')
             self.g.pts = []
         else:
-            messagebox.showerror("Atenção", "Clique em pelo menos 3 pontos", parent=self.curve)
+            messagebox.showerror("Atenção", "Clique em 3 pontos", parent=self.curve)
             self.g.clear()
 
     def run(self):

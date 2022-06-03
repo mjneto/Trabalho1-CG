@@ -5,9 +5,7 @@ def poli(pts): #define um poligno com os 3+ pontos
     pts_poli = []
 
     for p in range(len(pts)):
-        try:
-            if pts[p+1]: pts_poli.append(bresenham([pts[p], pts[p+1]]))
-        except IndexError:
-            pts_poli.append(bresenham([pts[p], init]))
+        if p == len(pts)-1: pts_poli.append(bresenham([pts[p], init]))
+        else: pts_poli.append(bresenham([pts[p], pts[p+1]]))
     
     return pts_poli
